@@ -1,0 +1,7 @@
+{
+  "name": "nodejs-api",
+  "description": "MongoDB with Mongoose on Node.js api sample",
+  "image": "heroku/nodejs",
+  "keywords": ["node", "mongoose", "ODM"],
+  "addons": ["mongolab"]
+}

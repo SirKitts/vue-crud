@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Demo</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="divContent"> 
+	{{ article.userId }}<br/>
+	{{ article.id }}<br/>
+	{{ article.title }}<br/>
+	{{ article.body }}<br/>
+  </div>
+
+  <script>
+    const vm = new Vue({
+	  el: '#divContent',
+	  data () {
+	    return {
+	      article: {}
+	    }
+	  },
+	  methods: {
+	    async search () {
+	    	await axios.get('https://jsonplaceholder.typicode.com/posts/1')
+			  	.then((response) => {
+			    	// handle success
+			    	this.article = response.data;
+			    	console.log(response.data);
+			  	})
+			  	.catch((error) => {
+			    	// handle error
+			    	console.log(error);
+			  	})
+	    }
+	  },
+	  created() {
+	  	this.search();
+	  }
+	});
+  </script>
+</body>
+</html>

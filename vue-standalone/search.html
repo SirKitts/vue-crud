@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Demo</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="divContent">
+    <h1>Article Search Results</h1>
+    <form v-on:submit.prevent="search">
+      <input type="text" v-model="query">
+      <button type="submit">Search</button>
+    </form>
+    
+    <ul>
+      <li v-for="article in articles" v-bind:key="article.source + article.id">
+        {{ article.title }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+	  el: '#divContent',
+	  data() {
+	    return {
+	      query: 'gene',
+	      articles: 'loading'
+	    }
+	  },
+	  created() {
+	    this.search();
+	  },
+	  methods: {
+	    search: function () {
+	      fetch(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${this.query}&format=json`)
+	        .then(response => response.json())
+	        .then(json => {
+	          this.articles = json.resultList.result;
+	        });
+	    }
+	  }
+	});
+  </script>
+</body>
+</html>
